@@ -1,0 +1,14 @@
+title: varkor's blog
+description: >-
+  A small blog about type theory and mathematics.
+baseurl: "/blog"
+url: "https://varkor.github.io"
+github_username:  varkor
+
+markdown: kramdown
+theme: minima
+plugins:
+  - jekyll-feed
+
+minima:
+  date_format: "%d %B, %Y"
