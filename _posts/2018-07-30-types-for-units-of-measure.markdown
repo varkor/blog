@@ -57,13 +57,13 @@ struct Unitless(Canonical);
 struct Length(Canonical);
 impl Dimension for Length {
     fn new(c: Canonical) -> Self { Length(c) }
-    fn get(&self) -> Canonical { self.0 }
+    fn value(&self) -> Canonical { self.0 }
 }
 
 struct Time(Canonical);
 impl Dimension for Time {
     fn new(c: Canonical) -> Self { Time(c) }
-    fn get(&self) -> Canonical { self.0 }
+    fn value(&self) -> Canonical { self.0 }
 }
 ```
 
@@ -106,7 +106,7 @@ impl<S: Dimension, T: Dimension> Dimension for ProductDimension<S, T> {
     fn new(c: Canonical) -> Self {
         ProductDimension(c, PhantomData, PhantomData)
     }
-    fn get(&self) -> Canonical { self.0 }
+    fn value(&self) -> Canonical { self.0 }
 }
 
 struct InverseDimension<T: Dimension>(
@@ -118,7 +118,7 @@ impl<T: Dimension> Dimension for InverseDimension<T> {
     fn new(c: Canonical) -> Self {
         InverseDimension(c, PhantomData)
     }
-    fn get(&self) -> Canonical { self.0 }
+    fn value(&self) -> Canonical { self.0 }
 }
 ```
 
