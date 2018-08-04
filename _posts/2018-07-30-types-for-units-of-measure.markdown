@@ -92,7 +92,7 @@ Now, we're going to want to construct new dimensions using multiplication and in
 ```rust
 use std::marker::PhantomData;
 
-struct ProductDimension<S: Dimension, T: Dimension>(
+struct DimensionMultiply<S: Dimension, T: Dimension>(
     // We only want to store a single value, but we need
     // to keep some reference to the types it came from,
     // which is why we need the `PhantomData`s. This is
@@ -102,21 +102,21 @@ struct ProductDimension<S: Dimension, T: Dimension>(
     PhantomData<T>,
 );
 
-impl<S: Dimension, T: Dimension> Dimension for ProductDimension<S, T> {
+impl<S: Dimension, T: Dimension> Dimension for DimensionMultiply<S, T> {
     fn new(c: Canonical) -> Self {
-        ProductDimension(c, PhantomData, PhantomData)
+        DimensionMultiply(c, PhantomData, PhantomData)
     }
     fn value(&self) -> Canonical { self.0 }
 }
 
-struct InverseDimension<T: Dimension>(
+struct DimensionInverse<T: Dimension>(
     Canonical,
     PhantomData<T>,
 );
 
-impl<T: Dimension> Dimension for InverseDimension<T> {
+impl<T: Dimension> Dimension for DimensionInverse<T> {
     fn new(c: Canonical) -> Self {
-        InverseDimension(c, PhantomData)
+        DimensionInverse(c, PhantomData)
     }
     fn value(&self) -> Canonical { self.0 }
 }
@@ -126,9 +126,9 @@ This all works so far, but we can already see a problem: we don't have uniquenes
 
 ```rust
 // We can define derived units using type aliases.
-type Speed1 = ProductDimension<Length, InverseDimension<Time>>; // Speed
-type Speed2 = ProductDimension<InverseDimension<Time>, Length>>; // ...also Speed...
-type Speed3 = InverseDimension<ProductDimension<Time, InverseDimension<Length>>>; // ...and again...
+type Speed1 = DimensionMultiply<Length, DimensionInverse<Time>>; // Speed
+type Speed2 = DimensionMultiply<DimensionInverse<Time>, Length>>; // ...also Speed...
+type Speed3 = DimensionInverse<DimensionMultiply<Time, DimensionInverse<Length>>>; // ...and again...
 ```
 
 Note that having explicit conversions between these representations isn't enough: these dimension types are not just *isomorphic*, they're actually *identical*. From an implementation point-of-view, we need to somehow normalise dimensions. Techniques for this exist, but to apply these at a library level at the very least you need type-level functions (or some way to assert equality of [ostensibly different] types, providing conversion methods that are unlikely to be automatically checked for correctness).
