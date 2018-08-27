@@ -12,3 +12,16 @@ plugins:
 
 minima:
   date_format: "%d %B, %Y"
+
+collections:
+  drafts:
+    output: true
+    permalink: /:categories/:year/:month/:day/:title:output_ext
+
+defaults:
+  - scope:
+      path: ""
+      type: drafts
+    values:
+      sitemap: false
+      noindex: true
