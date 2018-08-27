@@ -5,6 +5,10 @@ layout: default
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML" async></script>
 {% endif %}
 
+{% if page.noindex == true %}
+<div class="draft-notice">This is a draft post. Comments and feedback welcome!</div>
+{% endif %}
+
 <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">

@@ -4,9 +4,6 @@ title:  "Feasible functors in Rust"
 date:   2018-08-27 00:19:05 +0100
 latex:  true
 ---
-{% if page.noindex == true %}
-  <meta name="robots" content="noindex">
-{% endif %}
 [withoutboats](http://github.com/withoutboats), one of the Rust language design team, recently posted a thread on [the infeasibility of monads](https://twitter.com/withoutboats/status/1027702531361857536) as a useful abstraction technique in Rust, as a response to the persistence of some (usually from outside the Rust community) in claiming that "Rust is doing things incorrectly" by developing specific solutions to problems, rather than using a general category theoretic framework for everything. The points demonstrate real difficulties with attempting to use a general framework for these problems and to me serves perfectly as a "the ball's in your court now" to anyone claiming Rust is ignoring theory and coming up with unnecessary solutions to solved problems: if you think Rust could use monadic abstractions, you have to be able to address these counterarguments.
 
 Personally, I think the design decisions behind these features are sound and that a monadic abstraction for Rust is infeasible with the design constraints. However, I think the thread is interesting, academically, as a set of design challenges. These are a set of problems, without existing solutions, that could potentially have useful consequences if tackled.
