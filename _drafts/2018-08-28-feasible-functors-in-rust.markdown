@@ -84,7 +84,10 @@ trait Functor<trait G: Func> {
     // to Rust to support this pattern.
     // Notice how the particular function variant we're using is abstracted
     // into a trait parameter on `Functor`.
-    fn map_mor<A, B, F: G(A) -> B>(xa: impl MapOb<A>, f: F) -> impl MapOb<B>;
+    fn map_mor<A, B>(
+        xa: impl MapOb<A>,
+        f: impl G(A) -> B,
+    ) -> impl MapOb<B>;
 }
 
 // Now we can define an implementation of a trait *for* a trait.
@@ -96,9 +99,9 @@ trait Functor<trait G: Func> {
 impl Functor<trait FnMut> for trait Iterator {
     trait MapOb<A> = Iterator<Item = A>;
 
-    fn map_mor<A, B, F: FnMut(A) -> B>(
+    fn map_mor<A, B>(
         xa: impl MapOb<A>,
-        f: F,
+        f: impl FnMut(A) -> B,
     ) -> impl MapOb<B> {
         <MapOb<A> as Iterator<Item = A>>::map(xa, f)
     }
@@ -116,13 +119,16 @@ We might more conveniently express this with the following psuedocode, assuming 
 trait Functor<A, trait G: Func> {
     // `Self` here refers to the *trait* implementing `Functor<A>`,
     // as demonstrated below.
-    fn map_mor<B, F: G(A) -> B>(xa: impl Self<A>, f: F) -> impl Self<B>;
+    fn map_mor<B>(
+        xa: impl Self<A>,
+        f: impl G(A) -> B,
+    ) -> impl Self<B>;
 }
 
 impl<A> Functor<A, trait FnMut> for trait Iterator<Item = A> {
-    fn map_mor<B, F: FnMut(A) -> B>(
+    fn map_mor<B>(
         xa: impl Iterator<Item = A>,
-        f: F,
+        f: impl FnMut(A) -> B,
     ) -> impl Iterator<Item = B> {
         xa.map(f)
     }
@@ -133,9 +139,9 @@ impl<A> Functor<A, trait FnMut> for trait Iterator<Item = A> {
 
 ```rust
 impl<A> Functor<A, trait FnOnce> for trait Future<Item = A> {
-    fn map_mor<B, F: FnOnce(A) -> B>(
+    fn map_mor<B>(
         xa: impl Future<Item = A>,
-        f: F,
+        f: impl FnOnce(A) -> B,
     ) -> impl Future<Item = B> {
         xa.map(f)
     }
@@ -151,10 +157,9 @@ Now if we want to define a function that's generic over functors, we can do it.
 fn functorial_map<
     A, B, G: Func,
     FA: Functor<A, G>, FB: Functor<B, G>,
-    F: G(A) -> B,
 >(
     xa: impl FA,
-    f: F
+    f: impl G(A) -> B,
 ) -> impl FB {
     <FA as Functor<A>>::map_mor(f, xa)
 }
@@ -171,9 +176,9 @@ The technique is similarly extended to [monads](https://en.wikipedia.org/wiki/Mo
 trait Monad<A, trait G: Func, trait H: Func>: Functor<A, G> {
     fn unit(a: A) -> impl Self<A>;
 
-    fn bind<B, F: H(A) -> impl Self<B>>(
+    fn bind<B>(
         xa: impl Self<A>,
-        f: F,
+        f: impl (H(A) -> impl Self<B>),
     ) -> impl Self<B>;
 }
 
@@ -182,9 +187,9 @@ impl<A> Monad<A, trait FnMut, trait FnMut> for trait Iterator<Item = A> {
         iter::once(a)
     }
 
-    fn bind<B, F: H(A) -> impl Iterator<Item = B>>(
+    fn bind<B>(
         xa: impl Iterator<Item = A>,
-        f: F,
+        f: impl (H(A) -> impl Iterator<Item = B>),
     ) -> impl Iterator<Item = B> {
         xa.flat_map(f)
     }
@@ -195,9 +200,9 @@ impl<A> Monad<A, trait FnOnce, trait > for trait Future<Item = A> {
         future::ready(a)
     }
 
-    fn bind<B, F: H(A) -> impl Future<Item = B>>(
+    fn bind<B>(
         xa: impl Future<Item = A>,
-        f: F,
+        f: impl (H(A) -> impl Future<Item = B>),
     ) -> impl Future<Item = B> {
         xa.and_then(f)
     }
@@ -217,10 +222,9 @@ fn monadic_bind<
     A, B,
     G: Func, H: Func,
     MA: Monad<A, G, H>, MB: Monad<B, G, H>,
-    F: H(A) -> impl MB,
 >(
     xa: impl MA,
-    f: F,
+    f: impl (H(A) -> impl MB),
 ) -> impl MB {
     <MA as Monad<A, G, H>>::bind(xa, f)
 }
