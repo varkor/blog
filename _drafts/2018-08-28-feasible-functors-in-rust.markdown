@@ -94,9 +94,7 @@ trait Functor<trait G: Func> {
 // information we need.
 // `Iterator`'s map takes a `FnMut`, so we pass it in explicitly here.
 impl Functor<trait FnMut> for trait Iterator {
-    fn MapOb<A> -> trait {
-        Iterator<Item = A>
-    }
+    trait MapOb<A> = Iterator<Item = A>;
 
     fn map_mor<A, B, F: FnMut(A) -> B>(
         xa: impl MapOb<A>,
@@ -106,6 +104,8 @@ impl Functor<trait FnMut> for trait Iterator {
     }
 }
 ```
+
+Defining a trait for a trait is very similar to a trait for a type: the only difference is in the handling of `Self`. When defining a trait for a trait, `Self` is known to be a trait, so we can use it in bounds, or in `impl Trait`, and so on. Actually, in this first example, it's not even necessary, as none of the functions are defined for `self`, but it'll be useful in the next example.
 
 We might more conveniently express this with the following psuedocode, assuming the API convention that if we're implementing `Functor` for `Trait`, then we can define the map on objects to take a type `A` to `Trait<A>`. Of course, in Rust, we often use associated type parameters instead (e.g. `Iterator<Item = A>` rather than `Iterator<A>`), but let's just pretend the latter is sugar for the former for now, because it makes the code even simpler.
 
@@ -159,6 +159,8 @@ fn functorial_map<
     <FA as Functor<A>>::map_mor(f, xa)
 }
 ```
+
+Using this technique, I'm assuming that if you implement a trait `S` for a trait `T`, then any types implementing `T` will also have access to all the functions (and associated types) for `S`. This would making calling the functorial map as simple as calling a method on an instance of the type.
 
 ### Monads
 The technique is similarly extended to [monads](https://en.wikipedia.org/wiki/Monad_(category_theory)). Once we have functors, the rest follows quite simply. Let's see, just to make it clear. (I'll be using the more elegant syntax with `Self`-as-a-type-constructor here, but it's easily rewritten in the more explicit syntax.)
