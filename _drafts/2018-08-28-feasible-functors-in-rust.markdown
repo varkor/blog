@@ -10,6 +10,8 @@ Personally, I think the design decisions behind these features are sound and tha
 
 In this post, I'm going to take a look at one of the assertions and see if there's any way we might address it. In doing so, I hope to show that a functorial abstraction for existing interfaces in Rust is not as impossible as some think.
 
+[Note: it turned out that I wasn't the only one to be thinking about this problem recently. [Here's a very similar solution](https://gist.github.com/eddyb/5fcbc9ee442b6ce9c63bbf1ba54e70d6#gistcomment-2690193) to the one in this post.]
+
 ## The problem
 
 > Okay, so **Monad can't abstract over Future**, but still let's have Monad.
