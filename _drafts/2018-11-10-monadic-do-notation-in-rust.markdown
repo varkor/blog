@@ -2,6 +2,7 @@
 layout: post
 title:  "Monadic do notation in Rust"
 date:   2018-11-10 18:23:56 +0000
+latex: true
 ---
 # Monadic `do` notation in Rust
 
@@ -23,7 +24,7 @@ Let me clarify the objection that's being made here.
 
 [^1]: It stands for "Tennent's Correspondence Principle", if you're wondering, but it's not a standard term in programming language design. As far as I can tell was first mentioned in [this old Rust internals post](https://internals.rust-lang.org/t/pre-rfc-allow-return-continue-and-break-to-affect-the-captured-environment/4791). [This Stack Exchange](https://softwareengineering.stackexchange.com/a/120409) post gives a bit more context.
 
-[^2]: This is simply $\eta$-equivalence for functions whose domain is the unit type `()`. (In general, $\eta$-equivalence for functions doesn't hold for call-by-value languages with effects, but it's *plausible* in this special case it could hold, as `()` has no effect.)
+[^2]: This is simply $$\eta$$-equivalence for functions whose domain is the unit type `()`. (In general, $$\eta$$-equivalence for functions doesn't hold for call-by-value languages with effects, but it's *plausible* in this special case it could hold, as `()` has no effect.)
 
 ```rust
 // This function returns `5`.
