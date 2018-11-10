@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Monadic do notation in Rust: Part I"
-date:   2018-11-10 18:23:56 +0000
+date:   2018-11-10 20:10:56 +0000
 latex:  true
 ---
 Following [last time](https://varkor.github.io/blog/2018/08/28/feasible-functors-in-rust.html), where we saw that, given parameterision over traits (rather than just types), we could implement functors and monads in Rust that supported existing "monad-like" traits like `Iterator` and `Future`, I thought it would be interesting to tackle another one of the [arguments against monads in Rust](https://twitter.com/withoutboats/status/1027702531361857536).
@@ -151,7 +151,7 @@ surface! {
         bubble! expr4.bind(|b| {
             expr5;
             expr6(a, b);
-            Monat::unit(expr7)
+            Monad::unit(expr7)
         })
     })
 }
