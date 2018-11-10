@@ -4,8 +4,6 @@ title:  "Monadic do notation in Rust: Part I"
 date:   2018-11-10 18:23:56 +0000
 latex:  true
 ---
-# Monadic `do` notation in Rust: Part I
-
 Following [last time](https://varkor.github.io/blog/2018/08/28/feasible-functors-in-rust.html), where we saw that, given parameterision over traits (rather than just types), we could implement functors and monads in Rust that supported existing "monad-like" traits like `Iterator` and `Future`, I thought it would be interesting to tackle another one of the [arguments against monads in Rust](https://twitter.com/withoutboats/status/1027702531361857536).
 
 I view this one more as an aside than a central point in the argument, but it's worth addressing anyway (it's also easier to solve than the general case of [higher-kinded types (HKTs)](https://en.wikipedia.org/wiki/Kind_(type_theory)), which makes it attractive to cherry-pick).
