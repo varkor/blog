@@ -24,7 +24,7 @@ const fn foo<A: T>(A) -> A;
 ```
 This is interpreted in the following manner:
 - To call `foo` at compile-time, we must have a `const` value of some type `A` that implements `T`. Importantly, the implementation of `T for A` must itself be `const`. (We shall see exactly what a "`const` implementation" is soon.)
-- To call `foo` at run-time, we must have a run-time value of some type `A` that implements `T`. For consistency, the implementation of `T for A` must still be `const`. (Though this choice is discussed in more detail below.)
+- To call `foo` at run-time, we must have a run-time value of some type `A` that implements `T`. The implementation of `T for A` may be `const` or not.
 
 Analogously, take the following run-time `fn` declaration:
 ```rust
