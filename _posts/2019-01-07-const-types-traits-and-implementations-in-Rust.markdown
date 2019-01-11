@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "const types, traits and implementations in Rust"
-date:   2019-01-11 00:31:08 +0000
+date:   2019-01-11 19:02:40 +0000
 ---
 Rust permits a limited form of compile-time function execution in the form of `const` and `const fn`. While, initially, `const` may seem like a reasonaby straightforward feature, it turns out to raise a wealth of interesting and complex design questions. In this post, we're going to look at a particular design question that has been [under discussion](https://github.com/rust-rfcs/const-eval/pull/8) for [some time](https://github.com/rust-rfcs/const-eval/issues/1) and propose a design that is natural and expressive. This is motivated both from a syntactic perspective and a theoretic perspective.
 
