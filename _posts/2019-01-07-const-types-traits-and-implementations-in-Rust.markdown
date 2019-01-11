@@ -247,12 +247,12 @@ In the above discussion, we've talked about `const fn` from the perspective of b
 
 Alternatively, we may view `const` function types as being subtypes of run-time function types. In this light, a `const fn` type is a subtype of the run-time function type that we've described it as being "converted" to. Values of subtypes are simply particular cases of their parent types, which makes it evident that `const` functions should be callable at run-time.
 
-For example[^abuse-of-notation]:
+For example[^signature-type-notation]:
 - `const fn foo(A) -> B` is a subtype of `fn foo(A) -> B`.
 - `const fn bar<A: T>(A) -> B` is a subtype of `fn bar<A: T>(A) -> B`.
 - `const fn bop<A: const T>(A) -> B` is a subtype of `fn bar<A: const T>(A) -> B`.
 
-[^abuse-of-notation]: Technically, I'm abusing notation here, as function signatures aren't actually types. The type of `const fn foo(A) -> B` should properly be written `fn(A) -> B {foo}`. In the name of readability, I'm going to pretend signatures are types (signatures uniquely determine types, so this is unambiguous).
+[^signature-type-notation]: Technically, I'm abusing notation here, as function signatures aren't actually types. The type of `const fn foo(A) -> B` should properly be written `const fn(A) -> B {foo}`. In the name of readability, I'm going to pretend signatures are types (signatures uniquely determine types, so this is unambiguous).
 
 We'll briefly touch on why these are equivalent ways to view "`const` at run-time" in the theoretic model below.
 
