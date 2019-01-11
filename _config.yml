@@ -13,6 +13,8 @@ plugins:
 minima:
   date_format: "%d %B, %Y"
 
+google_analytics: UA-24316761-2
+
 collections:
   drafts:
     output: true
