@@ -269,9 +269,9 @@ Here, we're going to briefly outline what this design corresponds to in a naïve
 This is intended as a sketch for those with some familiarity with category theory: understanding it isn't critical to the understanding of the proposed design. ([Equivalently]((https://en.wikipedia.org/wiki/Curry%E2%80%93Howard_correspondence#Curry%E2%80%93Howard%E2%80%93Lambek_correspondence)), one could consider this design from the perspective of type theory.)
 
 ### The universe of types
-The collection of all types in Rust, together with the collection of all functions[^1] and the obvious notions of composition (namely, function composition) and identities (any notion of identity function, such as `|x| x`), forms a [category](https://en.wikipedia.org/wiki/Category_(mathematics)).
+The collection of all types in Rust, together with the collection of all functions[^fn-notation] and the obvious notions of composition (namely, function composition) and identities (any notion of identity function, such as `|x| x`), forms a [category](https://en.wikipedia.org/wiki/Category_(mathematics)).
 
-[^1]: Here, the function type `A -> B` is taken to be any type that implements a corresponding `Fn*` trait, for example `Fn(A) -> B`, `FnMut(A) -> B` and `FnOnce(A) -> B`.
+[^fn-notation]: Here, the function type `A -> B` is taken to be any type that implements a corresponding `Fn*` trait, for example `Fn(A) -> B`, `FnMut(A) -> B` and `FnOnce(A) -> B`.
 
 This universe contains the usual types, such as `()`, `bool`, `u8` and user-defined types. However, it also contains *another* version of each of the types, corresponding to `const`. For example, when we write:
 ```rust
