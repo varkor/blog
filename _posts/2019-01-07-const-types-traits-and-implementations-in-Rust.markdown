@@ -9,7 +9,7 @@ At present, `const fn` is a very restricted form of function. In particular, gen
 
 This is obviously a desirable feature, but it's hard to be sure that a design meets all the desiderata, while being as minimal as possible. We're going to look at a solution to this problem that should tick all the boxes.
 
-This proposed design and post have been coauthored with a fellow type enthusiast. Thanks to [@ubsan](https://github.com/ubsan) and [@rpjohnst](https://github.com/rpjohnst) for feedback on an early draft.
+This proposed design and post have been coauthored with [@cartesiancat](https://github.com/cartesiancat). Thanks to [@ubsan](https://github.com/ubsan) and [@rpjohnst](https://github.com/rpjohnst) for feedback on an early draft.
 
 ## Proposed design
 The most important concept to get right when dealing with `const` types, traits and implementations is the question of how const functions are treated as, or converted to, runtime functions. We should always able to call const functions at runtime, with the most permissive set of rules on their arguments. The rules determining this behaviour should feel natural (users shouldn't usually have to explicitly think about them), but the explicit rules should also be straightforward.
