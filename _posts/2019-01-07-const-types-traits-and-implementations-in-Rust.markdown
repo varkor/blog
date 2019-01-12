@@ -277,7 +277,7 @@ This universe contains the usual types, such as `()`, `bool`, `u8` and user-defi
 ```rust
 const X: bool = false;
 ```
-`X` implicitly has type `const u8`. All (non-function) user-defined and primitive types have `const` analogues.
+`X` implicitly has type `const bool`. All (non-function) user-defined and primitive types have `const` analogues.
 
 Within the scope of a `const fn`, all values have `const` types.
 ```rust
@@ -303,7 +303,7 @@ const fn bar(a: A) {
 }
 ```
 
-Of course, we're able to use `const` types within run-time functions. Implicitly, this makes use of a coercion from `const` types to non-`const` types. The coercion of most types is trivial, but the coercion of `const` function types in particular is given by the rules described in the previous section.
+Of course, we're able to use `const` types within run-time functions. Implicitly, this makes use of a coercion from `const` types to non-`const` types at run-time. The coercion cannot be applied at compile-time (or, equivalently, in `const` contexts), which is why the `const A` in the example above cannot simply be coerced to a run-time `A` to call `foo`. The coercion of most types is trivial, but the coercion of `const` function types in particular is given by the rules described in the previous section.
 
 ### The *unconst* monad
 There is a canonical operation that transforms a `const` type into a run-time type. Inuitively, this corresponds to removing the `const` prefix from any type (and potentially adding explicit `const` modifiers to each trait bound). Let's call this operation `U` (for *unconst*). `U` acts on both types (the objects of the universe `Type`) and functions (conserving their definitions while converting `const fn` to `fn`). Run-time types are fix-points for`U`: applying it on a non-`const` type has no effect. `U` is a functorial operation (following directly from the definitions) and hence forms an endofunctor on the category `Type`.
