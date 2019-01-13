@@ -10,7 +10,7 @@ At present, `const fn` is a very restricted form of function. In particular, gen
 This is obviously a desirable feature, but it's hard to be sure that a design meets all the desiderata, while being as minimal as possible. We're going to look at a solution to this problem that should tick all the boxes.
 
 <div class="update" markdown="span">
-This post was updated on 2018-01-13 to address the need for `?const` trait bounds.
+This post was updated on 2018-01-13 to address the need for <a href="#opting-out-of-const-trait-bounds-with-const">`?const` trait bounds</a>.
 </div>
 
 This proposed design and post have been coauthored with [@cartesiancat](https://github.com/cartesiancat). Thanks to [@ubsan](https://github.com/ubsan) and [@rpjohnst](https://github.com/rpjohnst) for feedback on an early draft.
