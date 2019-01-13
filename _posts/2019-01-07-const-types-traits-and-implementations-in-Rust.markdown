@@ -266,7 +266,7 @@ From a practical standpoint, the syntax proposed we've proposed seems most natur
 
 Here, we're going to briefly outline what this design corresponds to in a naïve category theoretic model of Rust. This should give a basic intuition for why this is a natural design from a theoretic viewpoint as well as a practical one. A full treatment of Rust's type system in general, and with respect to `const`, is left for a future occasion.
 
-This is intended as a sketch for those with some familiarity with category theory: understanding it isn't critical to the understanding of the proposed design. ([Equivalently]((https://en.wikipedia.org/wiki/Curry%E2%80%93Howard_correspondence#Curry%E2%80%93Howard%E2%80%93Lambek_correspondence)), one could consider this design from the perspective of type theory.)
+This is intended as a sketch for those with some familiarity with category theory: understanding it isn't critical to the understanding of the proposed design. ([Equivalently](https://en.wikipedia.org/wiki/Curry%E2%80%93Howard_correspondence#Curry%E2%80%93Howard%E2%80%93Lambek_correspondence), one could consider this design from the perspective of type theory.)
 
 ### The universe of types
 The collection of all types in Rust, together with the collection of all functions[^fn-notation] and the obvious notions of composition (namely, function composition) and identities (any notion of identity function, such as `|x| x`), forms a [category](https://en.wikipedia.org/wiki/Category_(mathematics)).
