@@ -9,6 +9,10 @@ At present, `const fn` is a very restricted form of function. In particular, gen
 
 This is obviously a desirable feature, but it's hard to be sure that a design meets all the desiderata, while being as minimal as possible. We're going to look at a solution to this problem that should tick all the boxes.
 
+<div class="update" markdown="span">
+This post was updated on 2018-01-13 to address the need for `?const` trait bounds.
+</div>
+
 This proposed design and post have been coauthored with [@cartesiancat](https://github.com/cartesiancat). Thanks to [@ubsan](https://github.com/ubsan) and [@rpjohnst](https://github.com/rpjohnst) for feedback on an early draft.
 
 ## Proposed design
@@ -152,17 +156,74 @@ fn baz<A: T>(A) -> A {
 }
 ```
 
+### Opting out of `const` trait bounds with `?const`
+There's one more ability we would like to be completely flexible with the strictness of our trait bounds (and to avoid requiring any duplication of trait definitions in some situations).
+
+Trait bounds in `const` functions require `const` implementations by default, which matches the intuition for run-time functions: "if you have a parameter with a trait bound `T`, you know that all the requirements of the bound can be used inside the function". However, sometimes you don't need such a strong restriction. Recall how, with `const` declarations in trait definitions, we could avoid having `const` trait bounds in run-time functions, as long as every method we used in a `const` context was declared `const` in the trait. Equally, we would like this ability in `const fn`.
+
+For example, take the following:
+```rust
+trait T {
+    const fn choice() -> bool;
+
+    fn validate(u8) -> bool;
+}
+
+struct S;
+
+impl T for S {
+    const fn choice() -> bool {
+        ...
+    }
+
+    fn validate(u8) -> bool {
+        ...
+    }
+}
+
+const fn bar<A: T>(A) -> A {
+    let x: bool = <A as T>::choice();
+    ...
+}
+
+// We can't call `bar` with a value of `S`, because
+// `S` doesn't `const`-implement `T`, even though it
+// only makes use of `const` functions!
+```
+
+We would like some way to relax this requirement when necessary. This is achieved by means of the explicit `const` trait bound opt-out: `?const`.
+
+```rust
+// ...continuing the previous example...
+
+const fn bar_opt_ct<A: ?const T>(A) -> A {
+    let x: bool = <A as T>::choice();
+    ...
+}
+
+// We can call `bar_opt_ct` with a value of `S`, because
+// the only method it makes use of is declared `const`
+// in the trait `T`.
+```
+
+The `?const` syntax mirrors that for `?Sized`, as an opt-out of the default (most common) behaviour. With this keyword, one now has full expressivity over trait bounds.
+
+- By default, `const fn` will require `const` trait bounds, so that you can freely use the trait within the function. At run-time, such functions have no restrictions on the trait bounds.
+- Trait bounds prefixed by `const` act like normal at compile-time, but also require `const` trait bounds at run-time.
+- Trait bounds prefixed by `?const` do not require `const` trait bounds, at compile-time or at run-time.
+- Methods may be called in a `const` context (such as at compile-time, or in an inner `const` at run-time) if either they originate from a `const` trait bound, or if they are explicitly declared `const` in the trait.
+
 ### Removal of the `const` keyword
-Since any `const` function can be called at run-time, it must also be a valid non-`const` function (after a suitable translation): this is what gives the intuition and motivation for our definition. The translation simply modifies the function signature without changing the body. This translation is extremely simple and involves simply removing the `const` prefix from a function.
+Since any `const` function can be called at run-time, it must also be a valid non-`const` function (after a suitable translation): this is what gives the intuition and motivation for our definition. The translation simply modifies the function signature without changing the body. This translation is extremely simple and involves simply removing the `const` prefix from a function and removing any `?const` bounds.
 
 ```rust
 trait T {
-    fn choice() -> bool;
+    const fn choice() -> bool;
     ...
 }
 
 // This function at compile-time...
-const fn baz_ct<A: T>(A) -> A {
+const fn baz_ct<A: ?const T>(A) -> A {
     let x: bool = <A as T>::choice();
     ...
 }
