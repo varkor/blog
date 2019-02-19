@@ -197,7 +197,7 @@ impl<A> Monad<A, trait FnMut, trait FnMut> for trait Iterator<Item = A> {
     }
 }
 
-impl<A> Monad<A, trait FnOnce, trait > for trait Future<Item = A> {
+impl<A> Monad<A, trait FnOnce, trait FnOnce> for trait Future<Item = A> {
     fn unit(a: A) -> impl Future<Item = A> {
         future::ready(a)
     }
