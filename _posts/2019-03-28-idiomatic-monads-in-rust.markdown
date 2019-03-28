@@ -159,7 +159,9 @@ With this last definition, we really are done. It's taken several iterations, bu
 
 We've defined the trait; the next thing to do is to implement it. After deriving a correct definition, making use of it presents no problems.
 
-I'm just going to give two definitions: for a functorial type and a functorial trait, to demonstrate the flexibility of our definition. More examples can be found at the end of this post.
+I'm just going to give two definitions[^option-conflict]: for a functorial type and a functorial trait, to demonstrate the flexibility of our definition. More examples can be found at the end of this post.
+
+[^option-conflict]: Technically, these two implementations are going to conflict, because the `Iterator` implementation will also apply to `Option`. For the sake of the examples, consider these implementations as living in isolation. In practice, we'd need to carefully decide which traits or types to implement these for.
 
 ```rust
 // Implementing `Functor` for a type.
