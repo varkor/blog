@@ -630,7 +630,7 @@ trait Applicative<A>: Functor<A> {
 
 ### Other higher-kinded types
 
-There are some higher-kinded types I suspect we need additional type system additions to support. For example, I think definining [`Traversable`](http://hackage.haskell.org/package/lens-4.17/docs/Control-Lens-Traversal.html) requires generic traits: i.e. traits as generic parameters. This is a similar, but distinct, feature from (generic) associated traits.
+There are some higher-kinded types I suspect we need additional type system additions to support. For example, I think definining [`Traversable`](http://hackage.haskell.org/package/lens-4.17/docs/Control-Lens-Traversal.html) requires trait generics: i.e. traits as generic parameters. This is a similar, but distinct, feature from (generic) associated traits.
 
 As another example, the similarly-named [`Traversal`](http://hackage.haskell.org/package/lens-4.17/docs/Control-Lens-Traversal) probably requires [higher-ranked types in trait bounds](https://github.com/rust-lang/rfcs/issues/1481).
 
