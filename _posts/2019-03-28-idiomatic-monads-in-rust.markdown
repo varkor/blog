@@ -453,7 +453,7 @@ The first question is easily answered. As `Monad` is simply a trait, we can use 
 ```rust
 // A simple function making use of a monad.
 fn double_inner<M: Monad<u64>>(m: M) -> M {
-    m.bind(|x| x * 2)
+    m.bind(|x| M::unit(x * 2))
 }
 ```
 
