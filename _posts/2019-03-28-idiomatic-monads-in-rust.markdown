@@ -204,10 +204,12 @@ trait Monad<A>: Functor<A> {
     trait SelfTrait<T>;
 
     // Unit
-    fn unit(A) -> Self;
+    type Unit<T>: Monad<T> + SelfTrait<T>;
+
+    fn unit(A) -> Unit<A>;
 
     // Bind
-    type Bind<T, F>: Monad<T>;
+    type Bind<T, F>: Monad<T> + SelfTrait<T>;
 
     trait BindFn<T, U>;
 
@@ -217,7 +219,9 @@ trait Monad<A>: Functor<A> {
 
 The first thing that you'll notice is that we have a new associated trait, `SelfTrait`. I'm going to come back to what role this plays shortly: you can ignore it for now.
 
-The `unit` function is very simple. For once, we don't need any kind of higher-kinded massaging here. This is because we don't need a "higher-kinded version of `Self`" here: we're returning a `Monad<A>`, which is precisely the type of `Self` (unlike in `map`, where the type parameter of `Functor` had to vary).
+The `unit` function is straightforwardly defined using the same reasoning as `Functor::map`. In the same way, we need to define a generic associated type that functions as its return type. (Here, there's an additional `SelfTrait` bound on `Unit`, but that's not important to understand yet[^self-trait-in-functor].)
+
+[^self-trait-in-functor]: We could have added a `SelfTrait` to `Functor` too, and imposed a similar bound on `Functor::Map`, which would have made the definition stronger. However, I thought it clearer to leave it out until it was strictly necessary. That is, the weaker definition of `Functor` defined above is sufficient to implement the types we expect to be functors, albeit while  allowing us to implement `Functor` for some types we probably don't expect to be functors.
 
 In general, though, for each function we define that uses `Self` in a higher-kinded fashion, we need to use a generic associated type just like for `map`. Such as is the case with `bind`. Here also, we want to permit the binding function type to vary, so we use an associated trait, `BindFn`, representing the kind of binding function, just like before. We could have reused the `MapFn` trait: often `map` and `bind` will take the same kind of functions, but this isn't always true, so for maximum generality we need another trait.
 
@@ -278,7 +282,9 @@ impl<A> Monad<A> for Option<A> {
     trait SelfTrait<T> = Id<Option<T>>;
 
     // Unit
-    fn unit(a: A) -> Self {
+    type Unit<T> = Option<T>;
+
+    fn unit(a: A) -> Option<A> {
         Some(a)
     }
 
@@ -297,7 +303,9 @@ impl<A, I: Iterator<Item = A>> Monad<A> for I {
     trait SelfTrait<T> = Iterator<Item = T>;
 
     // Unit
-    fn unit(a: A) -> Self {
+    type Unit<T> = iter::Once<T>;
+
+    fn unit(a: A) -> iter::Once<A> {
         iter::once(a)
     }
 
@@ -547,7 +555,9 @@ impl<A, E, R: Future<Item = A, E>> Monad<A> for R {
     trait SelfTrait<T> = Future<Item = T, E>;
 
     // Unit
-    fn unit(a: A) -> Self {
+    type Unit<T> = Ready<T>;
+
+    fn unit(a: A) -> Ready<A> {
         future::ready(a)
     }
 
