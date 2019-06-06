@@ -1,6 +1,6 @@
 title: varkor's blog
 description: >-
-  A small blog about type theory and mathematics.
+  A small blog about Rust, type theory and mathematics.
 baseurl: "/blog"
 url: "https://varkor.github.io"
 github_username:  varkor
