@@ -137,7 +137,7 @@ impl<A> Functor<A, trait FnMut> for trait Iterator<Item = A> {
 }
 ```
 
-`Future` ([defined in `rust-lang-nursery`]((https://rust-lang-nursery.github.io/futures-api-docs/0.3.0-alpha.3/futures/prelude/trait.Future.html))) is similarly simple to define in this way:
+`Future` ([defined in `rust-lang-nursery`](https://rust-lang-nursery.github.io/futures-api-docs/0.3.0-alpha.3/futures/prelude/trait.Future.html)) is similarly simple to define in this way:
 
 ```rust
 impl<A> Functor<A, trait FnOnce> for trait Future<Item = A> {
