@@ -82,7 +82,7 @@ fn decametres(dm: Canonical) -> Length {
     Length(dm * 10)
 }
 
-fn seconds(s: Canonical) -> Length {
+fn seconds(s: Canonical) -> Time {
     Time(s)
 }
 ```
