@@ -11,6 +11,12 @@
   text-align: justify;
 }
 
+hr {
+    border-top: none;
+    border-bottom: lightgrey 1px solid;
+	margin: 16pt 0;
+}
+
 .reversefootnote {
     font-family: monospace;
 }
@@ -28,4 +34,15 @@
     margin-bottom: 1em;
     border-radius: 4px;
     padding: 0.5em;
+}
+
+video {
+    max-width: 100%;
+	vertical-align: middle;
+}
+
+.small-video {
+    position: relative;
+    max-width: 50%;
+    left: 25%;
 }
