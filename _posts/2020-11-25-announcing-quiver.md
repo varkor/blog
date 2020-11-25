@@ -6,13 +6,13 @@ date:   2020-11-25 16:00:00
 [![quiver]({{site.baseurl}}/assets/images/quiver.png "quiver: a modern commutative diagram
 editor")](https://q.uiver.app)
 
-I'm happy to announce the release of [**quiver**](q.uiver.app), a new
+I'm happy to announce the release of [**quiver**](https://q.uiver.app), a new
 commutative diagram editor for the web. I've been working on **quiver** for the
 past two years and, while I only now feel ready to share it more widely, it has
 already become an essential tool in my own workflow. If you want to try it out
-immediately, you can do so at [q.uiver.app](q.uiver.app); if you're interested
-in how **quiver** came to be, or want a quick overview of its features, continue
-reading.
+immediately, you can do so at [q.uiver.app](https://q.uiver.app); if you're
+interested in how **quiver** came to be, or want a quick overview of its
+features, continue reading.
 
 [Commutative diagrams](https://en.wikipedia.org/wiki/Commutative_diagram) are a
 diagrammatic tool in mathematics used to express complex relationships between
@@ -39,7 +39,7 @@ spend hours struggling with LaTeX would no longer be a limiting factor[^1].
 
 [^1]: Anyone who has used it will know that writing LaTeX, and spending hours struggling with it, are the same thing. My hope is that this will no longer be necessary *specifically when creating commutative diagrams* for LaTeX.
 
-[**quiver**](q.uiver.app) is designed for exactly this purpose, making it
+[**quiver**](https://q.uiver.app) is designed for exactly this purpose, making it
 essentially painless to create large, complex commutative and pasting diagrams
 for exporting to LaTeX, or to simply take a screenshot for sharing elsewhere.
 I've spent a long time working on a slew of features I think are necessary for
