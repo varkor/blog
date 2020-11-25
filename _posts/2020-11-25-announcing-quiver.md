@@ -24,7 +24,10 @@ diagrams purely from an aesthetic viewpoint (I imagine **quiver** works well
 even as an editor for other sorts of diagrams too). I use commutative diagrams
 frequently in my own work. However, unfortunately, typesetting complex diagrams
 can be a time-intensive and tedious affair. Though there exist tools for dealing
-with very simple commutative diagrams, any diagram involving [higher-dimensional
+with very simple commutative diagrams &ndash; for instance, [Yichuan
+Shen](https://yichuanshen.de/)'s [tikzcd-editor](https://tikzcd.yichuanshen.de/)
+(to my knowledge, the earliest visual editor for commutative diagrams)
+&ndash; any diagram involving [higher-dimensional
 structure](https://en.wikipedia.org/wiki/Higher_category_theory) (intuitively,
 diagrams having arrows between other arrows, rather than just between vertices),
 such as [natural
