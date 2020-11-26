@@ -191,10 +191,12 @@ comes to generating appropriate TikZ to replicate the diagrams in LaTeX. I am
 not a TikZ expert, and so there are a few places where the LaTeX export feature
 struggles, because I haven't been able to figure out how to produce satisfactory
 results in TikZ: drawing curved triple arrows and shortened curved arrows are a
-couple of examples. If you're experienced with TikZ, and would like to help make
-this tool even better, I'd love to hear from you: you can contact me by opening
-an issue [on GitHub](https://github.com/varkor/quiver/issues), or by sending me
-a message [on Twitter](https://twitter.com/varkora).
+couple of examples ([here is a complete
+list](https://github.com/varkor/quiver/issues/46) with a little more detail). If
+you're experienced with TikZ, and would like to help make this tool even better,
+I'd love to hear from you: you can contact me by opening an issue [on
+GitHub](https://github.com/varkor/quiver/issues), or by sending me a message [on
+Twitter](https://twitter.com/varkora).
 
 I want **quiver** to be helpful for as many people as possible, so I'd be very
 grateful if you shared it with anyone else who might find it useful!
