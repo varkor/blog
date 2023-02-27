@@ -4,4 +4,4 @@ title: about
 permalink: /about/
 ---
 
-This blog is a way to preserve my thoughts on (particularly [Category Theory](https://ncatlab.org/nlab/show/HomePage)) and [Postmodernism](https://plato.stanford.edu/entries/postmodernism/)), linguistics and sociology
+This blog is a way to preserve my thoughts on particularly [Postmodernism](https://plato.stanford.edu/entries/postmodernism/), but also, [Category Theory](https://ncatlab.org/nlab/show/HomePage), linguistics and sociology

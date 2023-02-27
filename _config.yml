@@ -1,9 +1,9 @@
-title: varkor's blog
+title: Carlos' blog
 description: >-
-  A small blog about Rust, type theory and mathematics.
+  A blog about how to do the right type of philosophy :)  
 baseurl: "/blog"
-url: "https://varkor.github.io"
-github_username:  varkor
+url: "charlesdka.github.io/blog/"
+github_username:  CharlesDKA
 
 markdown: kramdown
 theme: minima
